@@ -21,8 +21,8 @@ base {
 dependencies {
     implementation(project(":eco-core:core-plugin"))
     
-    // 1.21.4 ve alt sürümler için gerekli NMS modülleri
-    implementation(project(":eco-core:core-nms:v1_21_4", configuration = "reobf"))
+    // Olmayan v1_21_4 yerine repoda fiziksel olarak var olan en alt modülü bağlıyoruz
+    implementation(project(":eco-core:core-nms:v1_21_8", configuration = "reobf"))
 }
 
 java {
@@ -31,11 +31,9 @@ java {
 
 publishing {
     publications {
-        // maven-private: only the shaded jar
         create<MavenPublication>("private") {
             artifactId = rootProject.name
         }
-        // maven-releases + GitHub: full set (none, all, sources, javadoc)
         create<MavenPublication>("release") {
             artifactId = rootProject.name
             from(components["java"])
@@ -85,7 +83,7 @@ allprojects {
 
     repositories {
         mavenLocal()
-        mavenCenter()
+        mavenCentral() // Hatalı olan mavenCenter() kelimesini mavenCentral() olarak düzelttik
 
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://repo.auxilor.io/repository/maven-public/")
@@ -149,7 +147,7 @@ allprojects {
     java {
         withSourcesJar()
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21) // 1.21.4 uyumluluğu için Java 21 stabil kalmalı
+            languageVersion = JavaLanguageVersion.of(21) // 1.21.4 uyumluluğu için Java 21'e çekildi
         }
     }
 }
