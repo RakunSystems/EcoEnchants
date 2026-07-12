@@ -20,12 +20,9 @@ base {
 
 dependencies {
     implementation(project(":eco-core:core-plugin"))
-    implementation(project(":eco-core:core-nms:v1_21_8", configuration = "reobf"))
-    implementation(project(":eco-core:core-nms:v1_21_10", configuration = "reobf"))
-    implementation(project(":eco-core:core-nms:v1_21_11", configuration = "reobf"))
-    implementation(project(":eco-core:core-nms:v26_1_1", configuration = "shadow"))
-    implementation(project(":eco-core:core-nms:v26_1_2", configuration = "shadow"))
-    implementation(project(":eco-core:core-nms:v26_2", configuration = "shadow"))
+    
+    // 1.21.4 ve alt sürümler için gerekli NMS modülleri
+    implementation(project(":eco-core:core-nms:v1_21_4", configuration = "reobf"))
 }
 
 java {
@@ -88,7 +85,7 @@ allprojects {
 
     repositories {
         mavenLocal()
-        mavenCentral()
+        mavenCenter()
 
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://repo.auxilor.io/repository/maven-public/")
@@ -152,7 +149,7 @@ allprojects {
     java {
         withSourcesJar()
         toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
+            languageVersion = JavaLanguageVersion.of(21) // 1.21.4 uyumluluğu için Java 21 stabil kalmalı
         }
     }
 }
