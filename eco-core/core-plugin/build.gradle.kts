@@ -17,6 +17,7 @@ dependencies {
     implementation(project(":eco-core:core-nms:v1_21_8", configuration = "reobf"))
 }
 
+
 tasks {
     build {
         dependsOn(publishToMavenLocal)
