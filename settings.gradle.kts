@@ -17,9 +17,6 @@ rootProject.name = "EcoEnchants"
 include(":eco-core")
 include(":eco-core:core-plugin")
 include(":eco-core:core-nms")
+
+// Sadece fiziksel olarak mevcut olan ve hata vermeyecek en alt modülü dahil ediyoruz
 include(":eco-core:core-nms:v1_21_8")
-include(":eco-core:core-nms:v1_21_10")
-include(":eco-core:core-nms:v1_21_11")
-include(":eco-core:core-nms:v26_1_1")
-include(":eco-core:core-nms:v26_1_2")
-include(":eco-core:core-nms:v26_2")

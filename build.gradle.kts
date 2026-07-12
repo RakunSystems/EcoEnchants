@@ -20,12 +20,9 @@ base {
 
 dependencies {
     implementation(project(":eco-core:core-plugin"))
+    
+    // Klasör hatasını çözmek için sadece mevcut olan en alt NMS modülünü dahil ediyoruz
     implementation(project(":eco-core:core-nms:v1_21_8", configuration = "reobf"))
-    implementation(project(":eco-core:core-nms:v1_21_10", configuration = "reobf"))
-    implementation(project(":eco-core:core-nms:v1_21_11", configuration = "reobf"))
-    implementation(project(":eco-core:core-nms:v26_1_1", configuration = "shadow"))
-    implementation(project(":eco-core:core-nms:v26_1_2", configuration = "shadow"))
-    implementation(project(":eco-core:core-nms:v26_2", configuration = "shadow"))
 }
 
 java {
@@ -48,18 +45,10 @@ publishing {
         maven {
             name = "Auxilor"
             url = uri("https://repo.auxilor.io/repository/maven-private/")
-            credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
-            }
         }
         maven {
             name = "AuxilorReleases"
             url = uri("https://repo.auxilor.io/repository/maven-releases/")
-            credentials {
-                username = System.getenv("MAVEN_USERNAME")
-                password = System.getenv("MAVEN_PASSWORD")
-            }
         }
     }
 }
@@ -73,12 +62,6 @@ afterEvaluate {
 tasks.matching { it.name.startsWith("generatePomFileFor") }.configureEach {
     mustRunAfter(tasks.named("clean"))
 }
-tasks.register("publishToAuxilor") {
-    dependsOn(
-        "publishPrivatePublicationToAuxilorRepository",
-        "publishReleasePublicationToAuxilorReleasesRepository",
-    )
-}
 
 allprojects {
     apply(plugin = "java")
@@ -88,7 +71,7 @@ allprojects {
 
     repositories {
         mavenLocal()
-        mavenCentral()
+        mavenCenter()
 
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://repo.auxilor.io/repository/maven-public/")
@@ -152,7 +135,7 @@ allprojects {
     java {
         withSourcesJar()
         toolchain {
-            languageVersion = JavaLanguageVersion.of(25)
+            languageVersion = JavaLanguageVersion.of(21) // 1.21.4 uyumluluğu için Java 21'e çekildi
         }
     }
 }
