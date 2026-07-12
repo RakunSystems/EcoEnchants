@@ -21,7 +21,7 @@ base {
 dependencies {
     implementation(project(":eco-core:core-plugin"))
     
-    // Olmayan v1_21_4 yerine repoda fiziksel olarak var olan en alt modülü bağlıyoruz
+    // Klasör hatasını çözmek için repoda fiziksel olarak var olan en alt modülü bağlıyoruz
     implementation(project(":eco-core:core-nms:v1_21_8", configuration = "reobf"))
 }
 
@@ -83,7 +83,7 @@ allprojects {
 
     repositories {
         mavenLocal()
-        mavenCentral() // Hatalı olan mavenCenter() kelimesini mavenCentral() olarak düzelttik
+        mavenCentral() // Hatalı olan mavenCenter() kelimesi tamamen düzeltildi
 
         maven("https://repo.papermc.io/repository/maven-public/")
         maven("https://repo.auxilor.io/repository/maven-public/")
@@ -147,7 +147,7 @@ allprojects {
     java {
         withSourcesJar()
         toolchain {
-            languageVersion = JavaLanguageVersion.of(21) // 1.21.4 uyumluluğu için Java 21'e çekildi
+            languageVersion = JavaLanguageVersion.of(21) // 1.21.4 uyumluluğu için Java 21 stabil kalmalı
         }
     }
 }
